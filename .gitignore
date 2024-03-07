@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### 민감한 코드 숨김 ###
+application-mysql.yml

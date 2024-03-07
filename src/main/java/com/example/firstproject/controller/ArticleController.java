@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -26,12 +25,12 @@ public class ArticleController {
     private CommentService commentService;
 
     @GetMapping("/articles/new")
-    public String newArticleForm(){
+    public String newArticleForm() {
         return "articles/new";
     }
 
     @PostMapping("/articles/create")
-    public String createArticle(ArticleForm form){
+    public String createArticle(ArticleForm form) {
         // System.out.println(form.toString());
         log.info(form.toString());
 
@@ -44,11 +43,11 @@ public class ArticleController {
         Article saved = articleRepository.save(article);
         // System.out.println(saved.toString());
         log.info(saved.toString());
-        return "redirect:/articles/" +  saved.getId();
+        return "redirect:/articles/" + saved.getId();
     }
 
     @GetMapping("/articles/{id}")
-    public String show(@PathVariable Long id, Model model){
+    public String show(@PathVariable Long id, Model model) {
         log.info("id =" + id);
         // 1. id를 조회해 데이터 가져오기
         Article articleEntity = articleRepository.findById(id).orElse(null);
@@ -61,7 +60,7 @@ public class ArticleController {
     }
 
     @GetMapping("/articles")
-    public String index(Model model){
+    public String index(Model model) {
         // 1. 모든 데이터 가져오기
         List<Article> articleEntityList = articleRepository.findAll();
         // 2. 모델에 데이터 등록하기
@@ -81,7 +80,7 @@ public class ArticleController {
     }
 
     @PostMapping("/articles/update")
-    public String update(ArticleForm form){
+    public String update(ArticleForm form) {
         // 1. DTO를 엔티티로 변환하기
         Article articleEntity = form.toEntity();
         log.info(articleEntity.toString());
@@ -99,7 +98,7 @@ public class ArticleController {
         // 1. 삭제할 대상 가져오기
         Article target = articleRepository.findById(id).orElse(null);
         // 2. 대상 엔티티 삭제하기
-        if(target!=null){
+        if (target != null) {
             articleRepository.delete(target);
             rttr.addFlashAttribute("msg", "삭제 됐습니다!!");
         }
