@@ -8,11 +8,8 @@ import com.example.firstproject.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,7 +38,7 @@ public class CommentService {
     }
 
     @Transactional
-    public CommentDto create(Long articleId, CommentDto dto){
+    public CommentDto create(Long articleId, CommentDto dto) {
         // 1. 게시글 조회 및 예외 발생
         Article article = articleRepository.findById(articleId).
                 orElseThrow(() -> new IllegalArgumentException("댓글 생성 실패! "
@@ -58,7 +55,7 @@ public class CommentService {
     public CommentDto update(Long id, CommentDto dto) {
         // 1. 댓글 조회 및 예외 발생
         Comment target = commentRepository.findById(id)
-                .orElseThrow(()->new IllegalArgumentException("댓글 수정 실패!" + "대상 댓글이 없습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("댓글 수정 실패!" + "대상 댓글이 없습니다."));
         // 2. 댓글 수정
         target.patch(dto);
         // 3. DB로 갱신
@@ -71,7 +68,7 @@ public class CommentService {
     public CommentDto delete(Long id) {
         // 1. 댓글 조회 및 예외 발생
         Comment target = commentRepository.findById(id)
-                .orElseThrow(()->new IllegalArgumentException("댓글 삭제실패! " +
+                .orElseThrow(() -> new IllegalArgumentException("댓글 삭제실패! " +
                         "대상이 없습니다."));
         // 2. 댓글 삭제
         commentRepository.delete(target);

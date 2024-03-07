@@ -27,7 +27,7 @@ public class ArticleService {
 
     public Article create(ArticleForm dto) {
         Article article = dto.toEntity();
-        if (article.getId() != null){
+        if (article.getId() != null) {
             return null;
         }
         return articleRepository.save(article);
@@ -40,7 +40,7 @@ public class ArticleService {
         // 2. 타깃 조회하기
         Article target = articleRepository.findById(id).orElse(null);
         // 3. 잘못된 요청 처리하기
-        if (target == null || id != article.getId()){
+        if (target == null || id != article.getId()) {
             log.info("잘못된 요청! id : {}, article : {}", id, article.toString());
             return null; // 응답은 컨트롤러가 하므로 여기서는 null 반환
         }
@@ -54,7 +54,7 @@ public class ArticleService {
         // 1. 대상 찾기
         Article target = articleRepository.findById(id).orElse(null);
         // 2. 잘못된 요청 처리하기
-        if (target == null){
+        if (target == null) {
             return null; // 응답은 컨트롤러가 하므로 여기서는 null 반환
         }
         // 3. 대상 삭제하기
@@ -66,7 +66,7 @@ public class ArticleService {
     public List<Article> createArticles(List<ArticleForm> dtos) {
         // 1. dto묶음을 엔티티 묶음으로 변환하기
         List<Article> articleList = dtos.stream()
-                .map(dto->dto.toEntity())
+                .map(dto -> dto.toEntity())
                 .collect(Collectors.toList());
         // 2. 엔티티 묶음을 DB에 저장하기
         articleList.stream()
